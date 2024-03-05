@@ -1,13 +1,12 @@
 # Movies project
 
 This project contains a Laravel 10 backend which handles the API connection with TMDB.
-And a frontend build with Next JS 13.
+And a frontend (another project) build with Next JS 13.
 
 ## Prerequisites
 
 This project requires 
 `php >= 8.1`
-`node >= 18`
 `MySQL >= 8.1`
 
 
@@ -37,8 +36,12 @@ php artisan db:seed
 php artisan app:fetch-movies
 ````
 
+### Frontend project
+
 Now run the [frontend project](https://github.com/xCharlotte/movies-frontend) on your local machine with Node v.18 and npm run dev
 http://localhost:3000
+
+`node >= 18`
 
 ### Enjoy 🦄
 
