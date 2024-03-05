@@ -24,8 +24,6 @@ If everything went well then it's time to run the migrations:
 ```bash
 # Go into your docker container
 docker exec -it movies-backend-app /bin/bash
-# now your backend folder
-cd movies-backend
 ```
 
 Run the following commands:
