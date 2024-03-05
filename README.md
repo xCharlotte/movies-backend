@@ -36,11 +36,10 @@ php artisan app:fetch-movies
 
 ### Frontend project
 
-Now run the [frontend project](https://github.com/xCharlotte/movies-frontend) on your local machine with Node v.18 and run it with
+Now run the [frontend project](https://github.com/xCharlotte/movies-frontend) on your local machine with `node >= 18` and run it with:
 
-`npm run dev` on http://localhost:3000
+`npm run dev` and open up http://localhost:3000
 
-`node >= 18`
 
 ### Enjoy 🦄
 
