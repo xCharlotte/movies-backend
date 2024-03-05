@@ -1,0 +1,74 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: charlotte
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: movies-backend
+    container_name: movies-backend-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - movies-backend
+
+  db:
+    image: mysql:8.0
+    container_name: movies-backend-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - movies-backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: movies-backend-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+    networks:
+      - movies-backend
+
+  php-fpm:
+    image: php:8-fpm
+    volumes:
+      - .:/var/www/html
+    networks:
+      - movies-backend
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: charlotte
+      MYSQL_USER: charlotte
+      MYSQL_PASSWORD: charlotteislief
+    depends_on:
+      - db
+    ports:
+      - 8081:80
+    networks:
+      - movies-backend
+
+networks:
+  movies-backend:
+    driver: bridge
+
+
